@@ -18,8 +18,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    self.photos = [[RecentsUserDefaults retrieveRecentsUserDefaults] mutableCopy]; //if put in viewDidLoad, it only get called once after launching app
-//    [self.tableView reloadData];
+    self.photos = [RecentsUserDefaults retrieveRecentsUserDefaults]; //if put in viewDidLoad, it only get called once after launching app
 }
 
 

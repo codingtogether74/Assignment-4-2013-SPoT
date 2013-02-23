@@ -10,7 +10,7 @@
 #import "FlickrFetcher.h"
 
 @interface StanfordTagsTVC ()
-@property (nonatomic,strong) NSArray *photos;
+
 @property (nonatomic, strong) NSArray *Tags;
 @property (nonatomic, strong) NSDictionary *photosByTags;
 @property (nonatomic, strong) NSSet *ignoredTags;
@@ -22,13 +22,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [super viewDidLoad];
-    self.photos = [FlickrFetcher stanfordPhotos];
-    self.photosByTags =[self arrangedByTagsPhotos:self.photos];
+    
+    self.photosByTags =[self arrangedByTagsPhotos:[FlickrFetcher stanfordPhotos]];
     self.Tags =[[self.photosByTags allKeys] sortedArrayUsingSelector:@selector(compare:)];
-
- //   self.Tags =[self.photosByTags allKeys];
-}
+ }
 
 -(NSDictionary *)photosByTags
 {
@@ -45,13 +42,15 @@
 {
     // We want to divide the photos up by tag, so we can use a dictionary with the
 	// tag name as key and the array of photos as values
+    
 	NSMutableDictionary *photosByTag = [NSMutableDictionary dictionary];
     
-    NSMutableSet *tags =[[NSMutableSet alloc] init]; // set of tags for one photo
     for (NSDictionary *photo in photos) {
-        NSArray *photoTags=[photo[FLICKR_TAGS] componentsSeparatedByString:@" "];
-        [tags addObjectsFromArray:photoTags];
-        [tags minusSet:self.ignoredTags];
+        NSMutableSet *tags =[[NSMutableSet alloc] init]; // set of tags for one photo
+
+        NSArray *photoTags=[photo[FLICKR_TAGS] componentsSeparatedByString:@" "]; //one photo tags
+        [tags addObjectsFromArray:photoTags];       // one photo tags in set
+        [tags minusSet:self.ignoredTags];           // one photo tags remove ignored tags
         for (NSString *tag in tags) {
             // If tag isn't already in the dictionary, add it with a new array
             
@@ -62,9 +61,7 @@
             [(NSMutableArray *)[photosByTag  objectForKey:tag] addObject:photo];
         }
     }
-	return [NSDictionary dictionaryWithDictionary:photosByTag];
-    
-    //   return [[NSArray alloc] initWithArray:[tags allObjects]];
+    return photosByTag;
 }
 
 #pragma mark - Table view data source
