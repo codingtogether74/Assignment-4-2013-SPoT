@@ -44,10 +44,11 @@
 	// tag name as key and the array of photos as values
     
 	NSMutableDictionary *photosByTag = [NSMutableDictionary dictionary];
+    NSMutableSet *tags =[[NSMutableSet alloc] init]; // set of tags for one photo
     
     for (NSDictionary *photo in photos) {
-        NSMutableSet *tags =[[NSMutableSet alloc] init]; // set of tags for one photo
-
+        [tags removeAllObjects]; // set of tags for one photo
+        
         NSArray *photoTags=[photo[FLICKR_TAGS] componentsSeparatedByString:@" "]; //one photo tags
         [tags addObjectsFromArray:photoTags];       // one photo tags in set
         [tags minusSet:self.ignoredTags];           // one photo tags remove ignored tags
