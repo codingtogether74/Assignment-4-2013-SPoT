@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSArray *Tags;
 @property (nonatomic, strong) NSDictionary *photosByTags;
-@property (nonatomic, strong) NSSet *ignoredTags;
+@property (nonatomic, strong) NSArray *ignoredTags;
 @end
 
 @implementation StanfordTagsTVC
@@ -33,9 +33,9 @@
         _photosByTags =[[NSMutableDictionary alloc] init];
     return _photosByTags;
 }
-- (NSSet *)ignoredTags
+- (NSArray *)ignoredTags
 {
-    return [[NSSet alloc] initWithObjects:@"cs193pspot", @"portrait", @"landscape", nil];
+    return [[NSArray alloc] initWithObjects:@"cs193pspot", @"portrait", @"landscape", nil];
 }
 
 -(NSDictionary *)arrangedByTagsPhotos:(NSArray *)photos
@@ -44,15 +44,13 @@
 	// tag name as key and the array of photos as values
     
 	NSMutableDictionary *photosByTag = [NSMutableDictionary dictionary];
-    NSMutableSet *tags =[[NSMutableSet alloc] init]; // set of tags for one photo
     
     for (NSDictionary *photo in photos) {
-        [tags removeAllObjects]; // set of tags for one photo
-        
-        NSArray *photoTags=[photo[FLICKR_TAGS] componentsSeparatedByString:@" "]; //one photo tags
-        [tags addObjectsFromArray:photoTags];       // one photo tags in set
-        [tags minusSet:self.ignoredTags];           // one photo tags remove ignored tags
-        for (NSString *tag in tags) {
+ //-------
+        NSMutableArray *photoTags=[[photo[FLICKR_TAGS] componentsSeparatedByString:@" "] mutableCopy]; //one photo tags
+        [photoTags removeObjectsInArray:self.ignoredTags];
+        //------
+        for (NSString *tag in photoTags) {
             // If tag isn't already in the dictionary, add it with a new array
             
             if (![photosByTag objectForKey:tag]) {

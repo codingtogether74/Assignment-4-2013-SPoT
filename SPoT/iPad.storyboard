@@ -49,9 +49,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="WbQ-Q1-UCm" kind="replace" identifier="Show image" splitViewControllerTargetIndex="1" id="WqM-Gt-zL5"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -102,7 +99,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ap9-Ya-bVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2076" y="-911"/>
+            <point key="canvasLocation" x="-5" y="861"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="IC5-Xr-7hw">
@@ -115,6 +112,9 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doT-8b-W2t"/>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M8f-bP-oZD">
                                 <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DHt-e6-WHX"/>
+                                    <barButtonItem title="Item" style="plain" id="yLq-DF-rcl"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mak-Af-HQH"/>
                                     <barButtonItem title="Show URL" id="oaL-zo-3Pp">
                                         <connections>
                                             <segue destination="CJB-Js-5YJ" kind="popover" identifier="Show URL" popoverAnchorBarButtonItem="oaL-zo-3Pp" id="JAc-h1-0Wf">
@@ -122,21 +122,18 @@
                                             </segue>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DHt-e6-WHX"/>
-                                    <barButtonItem title="Item" style="plain" id="yLq-DF-rcl"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mak-Af-HQH"/>
                                 </items>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="doT-8b-W2t" firstAttribute="leading" secondItem="s82-OH-CH8" secondAttribute="leading" type="default" id="2zG-dX-X9y"/>
-                            <constraint firstItem="M8f-bP-oZD" firstAttribute="bottom" secondItem="doT-8b-W2t" secondAttribute="top" type="default" id="DK3-Qh-HKO"/>
-                            <constraint firstAttribute="bottom" secondItem="doT-8b-W2t" secondAttribute="bottom" constant="-43" id="KSh-Lr-LhJ"/>
+                            <constraint firstItem="doT-8b-W2t" firstAttribute="bottom" secondItem="s82-OH-CH8" secondAttribute="bottom" type="default" id="HJo-PY-HX1"/>
                             <constraint firstItem="M8f-bP-oZD" firstAttribute="leading" secondItem="s82-OH-CH8" secondAttribute="leading" type="default" id="MTU-TH-WiL"/>
                             <constraint firstItem="M8f-bP-oZD" firstAttribute="trailing" secondItem="s82-OH-CH8" secondAttribute="trailing" type="default" id="N4I-d2-2QG"/>
+                            <constraint firstItem="M8f-bP-oZD" firstAttribute="top" secondItem="s82-OH-CH8" secondAttribute="top" type="default" id="Too-PR-xek"/>
                             <constraint firstItem="doT-8b-W2t" firstAttribute="trailing" secondItem="s82-OH-CH8" secondAttribute="trailing" type="default" id="aVi-gw-rJK"/>
-                            <constraint firstItem="M8f-bP-oZD" firstAttribute="top" secondItem="s82-OH-CH8" secondAttribute="top" constant="-1" id="kj3-gW-VAL"/>
+                            <constraint firstItem="doT-8b-W2t" firstAttribute="top" secondItem="s82-OH-CH8" secondAttribute="top" constant="43" id="uVf-HA-Oth"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="74q-Wg-xew"/>
@@ -144,11 +141,12 @@
                     <connections>
                         <outlet property="scrollView" destination="doT-8b-W2t" id="pRG-wm-Up0"/>
                         <outlet property="titleBarButtonItem" destination="yLq-DF-rcl" id="mEE-zk-718"/>
+                        <outlet property="toolBar" destination="M8f-bP-oZD" id="7Qx-xi-Who"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKt-RM-pgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1129" y="-958"/>
+            <point key="canvasLocation" x="-943" y="813"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gaf-Z6-66z">
@@ -289,9 +287,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="WbQ-Q1-UCm" kind="replace" identifier="Show image" splitViewControllerTargetIndex="1" id="n6G-z5-LPx"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -322,6 +317,7 @@
             <relationships>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="titleBarButtonItem" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
@@ -339,7 +335,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="Acv-dV-g1p"/>
-    </inferredMetricsTieBreakers>
 </document>

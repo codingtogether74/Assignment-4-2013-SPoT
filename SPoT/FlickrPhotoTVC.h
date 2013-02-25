@@ -7,7 +7,9 @@
 //  Will call setImageURL as part of any "Show image" segue
 
 #import <UIKit/UIKit.h>
+#import "ImageViewController.h"
 
 @interface FlickrPhotoTVC : UITableViewController
 @property (nonatomic,strong) NSArray *photos; // of NSDictionary
+
 @end

@@ -10,7 +10,7 @@
 #import "FlickrFetcher.h"
 #import "RecentsUserDefaults.h"
 
-@interface FlickrPhotoTVC ()<UISplitViewControllerDelegate>
+@interface FlickrPhotoTVC ()
 
 @end
 
@@ -21,7 +21,7 @@
     _photos =photos;
     [self.tableView reloadData];
 }
-
+/*
 #pragma mark - UISplitViewControllerDelegate
 
 - (void)awakeFromNib
@@ -33,9 +33,9 @@
   shouldHideViewController:(UIViewController *)vc
              inOrientation:(UIInterfaceOrientation)orientation
 {
-    return NO;
+    return YES;
 }
-
+*/
 #pragma mark - Segue 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -70,9 +70,9 @@
 }
 -(NSString *)subTitleForRow:(NSUInteger)row
 {
-  // return [self.photos[row][FLICKR_PHOTO_OWNER] description];
+    // return [self.photos[row][FLICKR_PHOTO_OWNER] description];
     return [[self.photos[row] valueForKeyPath:FLICKR_PHOTO_DESCRIPTION] description]; // description because could be NSNull
-
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -85,5 +85,21 @@
     cell.detailTextLabel.text = [self subTitleForRow:indexPath.row];
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {  // only iPad
+        NSURL *url =[FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:FlickrPhotoFormatLarge];
+        //----
+        ImageViewController *photoViewController =
+        (ImageViewController *) [[self.splitViewController viewControllers] lastObject];
+        //-----
+        if (photoViewController) {
+            if ([photoViewController respondsToSelector:@selector(setImageURL:)]) {
+                [photoViewController  performSelector:@selector(setImageURL:) withObject:url];
+                [photoViewController  setTitle:[self titleForRow:indexPath.row]];
+                [RecentsUserDefaults saveRecentsUserDefaults:self.photos[indexPath.row]];
+            }
+        }
+    }
+}
 @end
