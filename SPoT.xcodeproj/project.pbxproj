@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E4CD324E16DB18BC00E9C107 /* RotatableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CD324C16DB18BC00E9C107 /* RotatableViewController.m */; };
 		E4D4826916D7DCE700B65345 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D4826816D7DCE700B65345 /* UIKit.framework */; };
 		E4D4826B16D7DCE700B65345 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D4826A16D7DCE700B65345 /* Foundation.framework */; };
 		E4D4826D16D7DCE700B65345 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D4826C16D7DCE700B65345 /* CoreGraphics.framework */; };
@@ -29,9 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E4CD324C16DB18BC00E9C107 /* RotatableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotatableViewController.m; sourceTree = "<group>"; };
-		E4CD324F16DB18F500E9C107 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
-		E4CD325116DB198A00E9C107 /* RotatableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotatableViewController.h; sourceTree = "<group>"; };
 		E4D4826516D7DCE700B65345 /* SPoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SPoT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D4826816D7DCE700B65345 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E4D4826A16D7DCE700B65345 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -112,9 +108,6 @@
 				E4D4828B16D7DD4600B65345 /* iPhone.storyboard */,
 				E4D482AD16D8E28B00B65345 /* iPad.storyboard */,
 				E4D482B516D8F21700B65345 /* AttributedStringViewController.h */,
-				E4CD324F16DB18F500E9C107 /* SplitViewBarButtonItemPresenter.h */,
-				E4CD325116DB198A00E9C107 /* RotatableViewController.h */,
-				E4CD324C16DB18BC00E9C107 /* RotatableViewController.m */,
 				E4D482B616D8F21700B65345 /* AttributedStringViewController.m */,
 				E4D482A116D86E7E00B65345 /* StanfordTagsTVC.h */,
 				E4D482A216D86E7E00B65345 /* StanfordTagsTVC.m */,
@@ -233,7 +226,6 @@
 				E4D482A616D8B30C00B65345 /* RecentsUserDefaults.m in Sources */,
 				E4D482AC16D8BA1000B65345 /* ResentsTVC.m in Sources */,
 				E4D482B716D8F21700B65345 /* AttributedStringViewController.m in Sources */,
-				E4CD324E16DB18BC00E9C107 /* RotatableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

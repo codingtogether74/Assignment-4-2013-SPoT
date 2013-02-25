@@ -9,7 +9,8 @@
 #import "StanfordTagsTVC.h"
 #import "FlickrFetcher.h"
 
-@interface StanfordTagsTVC ()
+
+@interface StanfordTagsTVC ()<UISplitViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *Tags;
 @property (nonatomic, strong) NSDictionary *photosByTags;
@@ -97,16 +98,51 @@
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         if (indexPath) {
+            //-----------------------
             if ([segue.identifier isEqualToString:@"Show Photos For Tag"]) {
                 if ([segue.destinationViewController respondsToSelector:@selector(setPhotos:)]) {
- //                   NSArray *photos = [self arrayOfPhotosWithTag:[[self titleForRow:indexPath.row] lowercaseString]];
                     NSArray *photos = [NSArray arrayWithArray:(NSMutableArray *)[self.photosByTags  objectForKey:self.Tags[indexPath.row]]];
                     [segue.destinationViewController performSelector:@selector(setPhotos:) withObject:photos];
                     [segue.destinationViewController setTitle:[self titleForRow:indexPath.row]];
                 }
+                //----------------------------
             }
         }
     }
+}
+
+#pragma mark - UISplitViewControllerDelegate
+
+- (void)awakeFromNib
+{
+    self.splitViewController.delegate =self;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc
+{
+    
+    barButtonItem.title = @"Tags";
+    id detailViewController = [self.splitViewController.viewControllers lastObject];
+    [detailViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject:barButtonItem];
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willShowViewController:(UIViewController *)aViewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    id detailViewController = [self.splitViewController.viewControllers lastObject];
+    [detailViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject: nil];
+    
+}
+
+-(BOOL)splitViewController:(UISplitViewController *)svc
+  shouldHideViewController:(UIViewController *)vc
+             inOrientation:(UIInterfaceOrientation)orientation
+{
+    return UIInterfaceOrientationIsPortrait(orientation) ;
 }
 
 @end

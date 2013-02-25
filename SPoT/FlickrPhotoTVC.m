@@ -21,37 +21,34 @@
     _photos =photos;
     [self.tableView reloadData];
 }
-/*
-#pragma mark - UISplitViewControllerDelegate
 
-- (void)awakeFromNib
-{
-    self.splitViewController.delegate =self;
-}
-
--(BOOL)splitViewController:(UISplitViewController *)svc
-  shouldHideViewController:(UIViewController *)vc
-             inOrientation:(UIInterfaceOrientation)orientation
-{
-    return YES;
-}
-*/
 #pragma mark - Segue 
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         if (indexPath) {
+            //-----------------------------------
             if ([segue.identifier isEqualToString:@"Show image"]) {
                 NSURL *url =[FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:FlickrPhotoFormatLarge];
                 if ([segue.destinationViewController respondsToSelector:@selector(setImageURL:)]) {
                     [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:url];
                     [segue.destinationViewController setTitle:[self titleForRow:indexPath.row]];
                     [RecentsUserDefaults saveRecentsUserDefaults:self.photos[indexPath.row]];
-
+                }
+            } else if ([segue.identifier isEqualToString:@"MyReplaceSegue"]){
+                
+                [self transferSplitViewBarButtonItemToViewController:segue.destinationViewController];
+                NSURL *url =[FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:FlickrPhotoFormatLarge];
+                if ([segue.destinationViewController respondsToSelector:@selector(setImageURL:)]) {
+                    [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:url];
+                    [segue.destinationViewController setTitle:[self titleForRow:indexPath.row]];
+                    [RecentsUserDefaults saveRecentsUserDefaults:self.photos[indexPath.row]];
                 }
             }
+            //------------------------------
         }
     }
 }
@@ -85,6 +82,7 @@
     cell.detailTextLabel.text = [self subTitleForRow:indexPath.row];
     return cell;
 }
+/*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {  // only iPad
@@ -102,4 +100,49 @@
         }
     }
 }
+ */
+-(id) splitViewDetailWithBarButtonItem
+{
+    id detail =[self.splitViewController.viewControllers lastObject];
+    if (![detail respondsToSelector:@selector(setSplitViewBarButtonItem:)] ||
+        ![detail respondsToSelector:@selector(splitViewBarButtonItem)]) detail =nil;
+    return detail;
+}
+-(void) transferSplitViewBarButtonItemToViewController:(id)destinationViewController
+{
+    UIBarButtonItem *splitViewBarButtonItem =[[self splitViewDetailWithBarButtonItem] performSelector:@selector(splitViewBarButtonItem)];
+    [[self splitViewDetailWithBarButtonItem] performSelector:@selector(setSplitViewBarButtonItem:) withObject:nil];
+    if (splitViewBarButtonItem) {
+        [destinationViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject:splitViewBarButtonItem];
+    }
+}
+/*
+- (void)splitViewController:(UISplitViewController *)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc
+{
+
+    barButtonItem.title = @"Tags";
+    id detailViewController = [self.splitViewController.viewControllers lastObject];
+    [detailViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject:barButtonItem];
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willShowViewController:(UIViewController *)aViewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    id detailViewController = [self.splitViewController.viewControllers lastObject];
+    [detailViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject: nil];
+
+}
+
+ -(BOOL)splitViewController:(UISplitViewController *)svc
+ shouldHideViewController:(UIViewController *)vc
+ inOrientation:(UIInterfaceOrientation)orientation
+ {
+    return UIInterfaceOrientationIsPortrait(orientation) ;
+ }
+*/ 
+
 @end

@@ -12,11 +12,12 @@
 #define MINIMUM_ZOOM_SCALE 0.2
 #define MAXIMUM_ZOOM_SCALE 5.0
 
-@interface ImageViewController ()<UIScrollViewDelegate>
+@interface ImageViewController ()<UIScrollViewDelegate, UISplitViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong,nonatomic) UIImageView *imageView;
+//@property (weak, nonatomic) IBOutlet UIBarButtonItem *splitViewBarButtonItem;
 @property (nonatomic) BOOL stopZooming;
 @property (strong, nonatomic) UIPopoverController *urlPopover;
 
@@ -25,7 +26,6 @@
 @end
 
 @implementation ImageViewController
-@synthesize splitViewBarButtonItem=_splitViewBarButtonItem;
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
@@ -35,7 +35,6 @@
         
         return [super shouldPerformSegueWithIdentifier:identifier sender:sender];
     }
-        
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -70,6 +69,7 @@
         self.scrollView.contentSize =CGSizeZero;
         self.imageView.image =nil;
         self.stopZooming =NO;
+
         NSData *imageData =[[NSData alloc] initWithContentsOfURL:self.imageURL];
         UIImage *image =[[UIImage alloc] initWithData:imageData];
         if (image) {
@@ -127,25 +127,42 @@
     self.scrollView.delegate =self;
     [self resetImage];
     self.titleBarButtonItem.title =self.title;
-}
-#pragma mark - Split View Controller
-
-- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
-    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+    if (self.splitViewBarButtonItem)
+    {
         NSMutableArray *toolbarItems = [self.toolBar.items mutableCopy];
-        if (_splitViewBarButtonItem) {
-            [toolbarItems removeObject:_splitViewBarButtonItem];
-        }
-        if (splitViewBarButtonItem) {
-            [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
-        }
+        [toolbarItems insertObject:self.splitViewBarButtonItem atIndex:0];
         self.toolBar.items = toolbarItems;
-        _splitViewBarButtonItem = splitViewBarButtonItem;
     }
+
 }
 
 #pragma mark - Split View Controller
+
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)barButtonItem {
+   
+        NSMutableArray *toolbarItems = [self.toolBar.items mutableCopy];
+        if (_splitViewBarButtonItem) 
+            [toolbarItems removeObject:_splitViewBarButtonItem];
+        
+        if (barButtonItem) 
+            [toolbarItems insertObject:barButtonItem atIndex:0];
+        
+        self.toolBar.items = toolbarItems;
+        _splitViewBarButtonItem = barButtonItem;
+    
+}
 /*
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+#pragma mark - Split View Controller
+
 - (void)awakeFromNib  // always try to be the split view's delegate
 {
     [super awakeFromNib];

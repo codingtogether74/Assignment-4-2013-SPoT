@@ -49,6 +49,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="WbQ-Q1-UCm" kind="replace" identifier="MyReplaceSegue" splitViewControllerTargetIndex="1" id="QiZ-bO-ndC"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -99,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ap9-Ya-bVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5" y="861"/>
+            <point key="canvasLocation" x="2023" y="-1048"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="IC5-Xr-7hw">
@@ -146,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKt-RM-pgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-943" y="813"/>
+            <point key="canvasLocation" x="903" y="-1166"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gaf-Z6-66z">
@@ -254,7 +257,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGv-W2-3jn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-521" y="-266"/>
+            <point key="canvasLocation" x="-797" y="-330"/>
         </scene>
         <!--ResentsTVC-->
         <scene sceneID="Wlq-WK-dFj">
@@ -287,6 +290,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="WbQ-Q1-UCm" kind="replace" identifier="MyReplaceSegue" splitViewControllerTargetIndex="1" id="x1D-o6-3e5"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -335,4 +341,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="QiZ-bO-ndC"/>
+    </inferredMetricsTieBreakers>
 </document>
