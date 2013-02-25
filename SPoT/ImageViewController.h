@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SplitViewBarButtonItemPresenter.h"
+#import "RotatableViewController.h"
 
-@interface ImageViewController : UIViewController 
+@interface ImageViewController : RotatableViewController <SplitViewBarButtonItemPresenter>
 
 @property (nonatomic,strong) NSURL *imageURL;
 

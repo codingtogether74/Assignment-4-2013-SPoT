@@ -38,7 +38,7 @@
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc
 {
-    barButtonItem.title = @"Photos List";
+    barButtonItem.title = @"Tags";
     [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
 }
 
@@ -47,6 +47,15 @@
   invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = nil;
+}
+ - (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
 }
 /*
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

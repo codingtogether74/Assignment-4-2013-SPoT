@@ -12,18 +12,20 @@
 #define MINIMUM_ZOOM_SCALE 0.2
 #define MAXIMUM_ZOOM_SCALE 5.0
 
-@interface ImageViewController ()<UIScrollViewDelegate, UISplitViewControllerDelegate>
+@interface ImageViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong,nonatomic) UIImageView *imageView;
 @property (nonatomic) BOOL stopZooming;
 @property (strong, nonatomic) UIPopoverController *urlPopover;
+
 @property (strong, nonatomic) UIPopoverController *myPopoverController;
 
 @end
 
 @implementation ImageViewController
+@synthesize splitViewBarButtonItem=_splitViewBarButtonItem;
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
@@ -128,6 +130,22 @@
 }
 #pragma mark - Split View Controller
 
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
+    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+        NSMutableArray *toolbarItems = [self.toolBar.items mutableCopy];
+        if (_splitViewBarButtonItem) {
+            [toolbarItems removeObject:_splitViewBarButtonItem];
+        }
+        if (splitViewBarButtonItem) {
+            [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
+        }
+        self.toolBar.items = toolbarItems;
+        _splitViewBarButtonItem = splitViewBarButtonItem;
+    }
+}
+
+#pragma mark - Split View Controller
+/*
 - (void)awakeFromNib  // always try to be the split view's delegate
 {
     [super awakeFromNib];
@@ -170,5 +188,5 @@
         return NO;
     }
 }
-
+*/
 @end
