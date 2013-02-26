@@ -12,12 +12,12 @@
 #define MINIMUM_ZOOM_SCALE 0.2
 #define MAXIMUM_ZOOM_SCALE 5.0
 
-@interface ImageViewController ()<UIScrollViewDelegate, UISplitViewControllerDelegate>
+@interface ImageViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong,nonatomic) UIImageView *imageView;
-//@property (weak, nonatomic) IBOutlet UIBarButtonItem *splitViewBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *splitViewBarButtonItem;
 @property (nonatomic) BOOL stopZooming;
 @property (strong, nonatomic) UIPopoverController *urlPopover;
 
@@ -118,6 +118,9 @@
     return _imageView;
 }
 
+// viewDidLoad is callled after this view controller has been fully instantiated
+//  and its outlets have all been hooked up.
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -127,29 +130,29 @@
     self.scrollView.delegate =self;
     [self resetImage];
     self.titleBarButtonItem.title =self.title;
-    if (self.splitViewBarButtonItem)
-    {
-        NSMutableArray *toolbarItems = [self.toolBar.items mutableCopy];
-        [toolbarItems insertObject:self.splitViewBarButtonItem atIndex:0];
-        self.toolBar.items = toolbarItems;
-    }
-
+    [self handleSplitViewBarButtonItem:self.splitViewBarButtonItem];
 }
 
 #pragma mark - Split View Controller
 
-- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)barButtonItem {
-   
-        NSMutableArray *toolbarItems = [self.toolBar.items mutableCopy];
-        if (_splitViewBarButtonItem) 
-            [toolbarItems removeObject:_splitViewBarButtonItem];
-        
-        if (barButtonItem) 
-            [toolbarItems insertObject:barButtonItem atIndex:0];
-        
-        self.toolBar.items = toolbarItems;
-        _splitViewBarButtonItem = barButtonItem;
-    
+// Puts the splitViewBarButton in our toolbar (and/or removes the old one).
+// Must be called when our splitViewBarButtonItem property changes
+//  (and also after our view has been loaded from the storyboard (viewDidLoad)).
+
+- (void)handleSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
+{
+    NSMutableArray *toolbarItems = [self.toolBar.items mutableCopy];
+    if (_splitViewBarButtonItem) [toolbarItems removeObject:_splitViewBarButtonItem];
+    if (splitViewBarButtonItem) [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
+    self.toolBar.items = toolbarItems;
+    _splitViewBarButtonItem = splitViewBarButtonItem;
+}
+
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
+{
+    if (splitViewBarButtonItem != _splitViewBarButtonItem) {
+        [self handleSplitViewBarButtonItem:splitViewBarButtonItem];
+    }
 }
 /*
 - (BOOL)shouldAutorotate
@@ -161,49 +164,5 @@
 {
     return UIInterfaceOrientationMaskAll;
 }
-#pragma mark - Split View Controller
-
-- (void)awakeFromNib  // always try to be the split view's delegate
-{
-    [super awakeFromNib];
-    self.splitViewController.delegate = self;
-}
-
-- (void) splitViewController:(UISplitViewController *)svc
-      willHideViewController:(UIViewController *)aViewController
-           withBarButtonItem:(UIBarButtonItem *)barButtonItem
-        forPopoverController:(UIPopoverController *)pc
-{
-    // add button to toolbar
-    barButtonItem.title = @"Tags";
-    // tell the detail view to put this button up
-    NSMutableArray *items = [[self.toolBar items] mutableCopy];
-    [items insertObject:barButtonItem atIndex:0];
-    [self.toolBar setItems:items animated:YES];
-    self.myPopoverController = pc;
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willShowViewController:(UIViewController *)aViewController
-  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    // remove button from toolbar
-    NSMutableArray *items = [[self.toolBar items] mutableCopy];
-    [items removeObjectAtIndex:0];
-    [self.toolBar setItems:items animated:YES];
-    self.myPopoverController = nil;
-}
-- (BOOL)splitViewController:(UISplitViewController *)svc
-   shouldHideViewController:(UIViewController *)vc
-              inOrientation:(UIInterfaceOrientation)orientation
-{
-    if (self.splitViewController) {
-        // iPad
-        return UIInterfaceOrientationIsPortrait(orientation);
-    } else {
-        // iPhone
-        return NO;
-    }
-}
-*/
+ */
 @end

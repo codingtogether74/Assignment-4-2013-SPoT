@@ -10,7 +10,7 @@
 #import "FlickrFetcher.h"
 
 
-@interface StanfordTagsTVC ()<UISplitViewControllerDelegate>
+@interface StanfordTagsTVC ()
 
 @property (nonatomic, strong) NSArray *Tags;
 @property (nonatomic, strong) NSDictionary *photosByTags;
@@ -110,39 +110,4 @@
         }
     }
 }
-
-#pragma mark - UISplitViewControllerDelegate
-
-- (void)awakeFromNib
-{
-    self.splitViewController.delegate =self;
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willHideViewController:(UIViewController *)aViewController
-          withBarButtonItem:(UIBarButtonItem *)barButtonItem
-       forPopoverController:(UIPopoverController *)pc
-{
-    
-    barButtonItem.title = @"Tags";
-    id detailViewController = [self.splitViewController.viewControllers lastObject];
-    [detailViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject:barButtonItem];
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willShowViewController:(UIViewController *)aViewController
-  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    id detailViewController = [self.splitViewController.viewControllers lastObject];
-    [detailViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject: nil];
-    
-}
-
--(BOOL)splitViewController:(UISplitViewController *)svc
-  shouldHideViewController:(UIViewController *)vc
-             inOrientation:(UIInterfaceOrientation)orientation
-{
-    return UIInterfaceOrientationIsPortrait(orientation) ;
-}
-
 @end

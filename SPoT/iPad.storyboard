@@ -50,7 +50,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="WbQ-Q1-UCm" kind="replace" identifier="MyReplaceSegue" splitViewControllerTargetIndex="1" id="QiZ-bO-ndC"/>
+                                    <segue destination="WbQ-Q1-UCm" kind="replace" identifier="Show image" splitViewControllerTargetIndex="1" id="QiZ-bO-ndC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -291,7 +291,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="WbQ-Q1-UCm" kind="replace" identifier="MyReplaceSegue" splitViewControllerTargetIndex="1" id="x1D-o6-3e5"/>
+                                    <segue destination="WbQ-Q1-UCm" kind="replace" identifier="Show image" splitViewControllerTargetIndex="1" id="x1D-o6-3e5"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -308,40 +308,12 @@
             <point key="canvasLocation" x="405" y="-301"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="AttributedStringViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AttributedStringViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="FlickrPhotoTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTVC.h"/>
-        </class>
-        <class className="ImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="titleBarButtonItem" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="ResentsTVC" superclassName="FlickrPhotoTVC">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResentsTVC.h"/>
-        </class>
-        <class className="StanfordTagsTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StanfordTagsTVC.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="QiZ-bO-ndC"/>
+        <segue reference="x1D-o6-3e5"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -10,7 +10,7 @@
 #import "FlickrFetcher.h"
 #import "RecentsUserDefaults.h"
 
-@interface FlickrPhotoTVC ()
+@interface FlickrPhotoTVC ()<UISplitViewControllerDelegate>
 
 @end
 
@@ -30,25 +30,15 @@
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         if (indexPath) {
-            //-----------------------------------
             if ([segue.identifier isEqualToString:@"Show image"]) {
                 NSURL *url =[FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:FlickrPhotoFormatLarge];
-                if ([segue.destinationViewController respondsToSelector:@selector(setImageURL:)]) {
-                    [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:url];
-                    [segue.destinationViewController setTitle:[self titleForRow:indexPath.row]];
-                    [RecentsUserDefaults saveRecentsUserDefaults:self.photos[indexPath.row]];
-                }
-            } else if ([segue.identifier isEqualToString:@"MyReplaceSegue"]){
-                
                 [self transferSplitViewBarButtonItemToViewController:segue.destinationViewController];
-                NSURL *url =[FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:FlickrPhotoFormatLarge];
                 if ([segue.destinationViewController respondsToSelector:@selector(setImageURL:)]) {
                     [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:url];
                     [segue.destinationViewController setTitle:[self titleForRow:indexPath.row]];
                     [RecentsUserDefaults saveRecentsUserDefaults:self.photos[indexPath.row]];
                 }
             }
-            //------------------------------
         }
     }
 }
@@ -82,6 +72,8 @@
     cell.detailTextLabel.text = [self subTitleForRow:indexPath.row];
     return cell;
 }
+#pragma mark - Table view delegate
+
 /*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -116,13 +108,20 @@
         [destinationViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject:splitViewBarButtonItem];
     }
 }
-/*
+
+#pragma mark - UISplitViewControllerDelegate
+
+- (void)awakeFromNib
+{
+    self.splitViewController.delegate =self;
+}
+
 - (void)splitViewController:(UISplitViewController *)svc
      willHideViewController:(UIViewController *)aViewController
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc
 {
-
+    
     barButtonItem.title = @"Tags";
     id detailViewController = [self.splitViewController.viewControllers lastObject];
     [detailViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject:barButtonItem];
@@ -134,15 +133,14 @@
 {
     id detailViewController = [self.splitViewController.viewControllers lastObject];
     [detailViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject: nil];
-
+    
 }
 
- -(BOOL)splitViewController:(UISplitViewController *)svc
- shouldHideViewController:(UIViewController *)vc
- inOrientation:(UIInterfaceOrientation)orientation
- {
+-(BOOL)splitViewController:(UISplitViewController *)svc
+  shouldHideViewController:(UIViewController *)vc
+             inOrientation:(UIInterfaceOrientation)orientation
+{
     return UIInterfaceOrientationIsPortrait(orientation) ;
- }
-*/ 
+}
 
 @end
